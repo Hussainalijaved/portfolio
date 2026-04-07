@@ -147,12 +147,12 @@ const projectDetails = {
     },
     "GateSale": {
         images: [
-            "/images/g1.jpeg",
-            "/images/g2.jpeg",
-            "/images/g3.jpeg",
-            "/images/g4.jpeg",
-            "/images/g5.jpeg",
-            "/images/g6.jpeg"
+            "images/g1.jpeg",
+            "images/g2.jpeg",
+            "images/g3.jpeg",
+            "images/g4.jpeg",
+            "images/g5.jpeg",
+            "images/g6.jpeg"
         ],
         description: `
             <p>An intuitive online student marketplace designed to foster a circular economy within campuses by enabling students to seamlessly buy and sell second-hand products securely.</p>
