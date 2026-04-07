@@ -128,8 +128,10 @@ const projectDetails = {
     "Smart Tales and Task App": {
         images: [
             "/images/sm1.png",
-            "/images/sm2.png",
-            "/images/sm3.png"
+            "/images/SM2.png",
+            "/images/sm3.png",
+            "/images/sm4.png",
+            "/images/sm5.png"
         ],
         description: `
             <p>A comprehensive learning and assignment management application tailored for educational institutions, enabling seamless interaction between teachers and students.</p>
