@@ -105,6 +105,12 @@ document.querySelectorAll('.scroll-animate').forEach((element) => {
 // --- Project Modal Logic ---
 const projectDetails = {
     "Xtel - Promotions Management": {
+        images: [
+            "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+        ],
         description: `
             <p><strong>Xtel</strong> is a high-performance Promotions Management System engineered with a <strong>Microservices</strong> and <strong>Microfrontend Architecture</strong>. The system provides a centralized platform for managing complex promotional campaigns and secure user authentication (SSO).</p>
             <p><strong>Key Technical Highlights:</strong></p>
@@ -120,6 +126,11 @@ const projectDetails = {
         `
     },
     "Smart Tales and Task App": {
+        images: [
+            "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80"
+        ],
         description: `
             <p>A comprehensive learning and assignment management application tailored for educational institutions, enabling seamless interaction between teachers and students.</p>
             <p><strong>Key Features & Contributions:</strong></p>
@@ -133,6 +144,11 @@ const projectDetails = {
         `
     },
     "GateSale": {
+        images: [
+            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80"
+        ],
         description: `
             <p>An intuitive online student marketplace designed to foster a circular economy within campuses by enabling students to seamlessly buy and sell second-hand products securely.</p>
             <p><strong>Key Features & Contributions:</strong></p>
@@ -146,6 +162,11 @@ const projectDetails = {
         `
     },
     "SABES - Electric Store POS App": {
+        images: [
+            "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1512428559083-a40ea914197e?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=1200&q=80"
+        ],
         description: `
             <p>A specialized, high-performance point-of-sale system created specifically for an electronic and hardware retail store. Designed to modernize out-dated billing processes and improve business tracking.</p>
             <p><strong>Key Features & Contributions:</strong></p>
@@ -166,55 +187,96 @@ const modalImg = document.getElementById('modal-img');
 const modalTitle = document.getElementById('modal-title');
 const modalTech = document.getElementById('modal-tech');
 const modalDesc = document.getElementById('modal-desc');
+const modalPrev = document.getElementById('modal-prev');
+const modalNext = document.getElementById('modal-next');
+const modalIndicators = document.getElementById('modal-indicators');
+
+let currentProjectImages = [];
+let currentImageIndex = 0;
+
+function updateModalGallery() {
+    // Fade out
+    modalImg.style.opacity = '0';
+    
+    setTimeout(() => {
+        // Change source
+        modalImg.src = currentProjectImages[currentImageIndex];
+        
+        // Update indicators
+        document.querySelectorAll('.indicator').forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentImageIndex);
+        });
+        
+        // Fade in
+        modalImg.style.opacity = '1';
+    }, 300);
+
+    // Toggle navigation buttons visibility if only one image
+    const showNav = currentProjectImages.length > 1;
+    modalPrev.style.display = showNav ? 'flex' : 'none';
+    modalNext.style.display = showNav ? 'flex' : 'none';
+}
+
+function initGallery(images) {
+    currentProjectImages = images;
+    currentImageIndex = 0;
+    
+    // Clear and build indicators
+    modalIndicators.innerHTML = '';
+    images.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('indicator');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+            currentImageIndex = index;
+            updateModalGallery();
+        });
+        modalIndicators.appendChild(dot);
+    });
+    
+    updateModalGallery();
+}
+
+modalPrev.addEventListener('click', () => {
+    currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
+    updateModalGallery();
+});
+
+modalNext.addEventListener('click', () => {
+    currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
+    updateModalGallery();
+});
 
 document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('click', (e) => {
-        // Prevent opening if clicking on a link
         if(e.target.closest('a')) return;
         
-        // Extract data from the clicked card
         const titleElement = card.querySelector('.project-title');
-        const imgElement = card.querySelector('img');
         const techList = card.querySelector('.project-tech');
+        const projectTitle = titleElement.innerText;
         
-        if (titleElement && projectDetails[titleElement.innerText]) {
-            // Populate modal
-            modalTitle.innerText = titleElement.innerText;
-            modalImg.src = imgElement.src;
-            modalImg.alt = imgElement.alt;
+        if (titleElement && projectDetails[projectTitle]) {
+            const data = projectDetails[projectTitle];
             
-            // Reconstruct tech stack string for the modal subtitle
+            modalTitle.innerText = projectTitle;
             const techs = Array.from(techList.querySelectorAll('li')).map(li => li.innerText).join(' • ');
             modalTech.innerText = techs;
+            modalDesc.innerHTML = data.description;
             
-            // Inject extensive HTML description
-            modalDesc.innerHTML = projectDetails[titleElement.innerText].description;
+            // Initialize Gallery
+            initGallery(data.images);
             
-            // Show modal
             modal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
     });
 });
 
-// Close Modal functions
 const closeModal = () => {
     modal.classList.remove('show');
     document.body.style.overflow = '';
 };
 
 closeModalBtn.addEventListener('click', closeModal);
-
-// Close when clicking outside modal content
-window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        closeModal();
-    }
-});
-
-// Close on Escape key
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('show')) {
-        closeModal();
-    }
-});
+window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });

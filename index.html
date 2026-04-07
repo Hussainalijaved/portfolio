@@ -417,7 +417,14 @@
             <span class="close-modal"><i class="fas fa-times"></i></span>
             <div class="modal-body">
                 <div class="modal-img-container">
+                    <button class="modal-nav prev" id="modal-prev" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
                     <img id="modal-img" src="" alt="Project Image">
+                    <button class="modal-nav next" id="modal-next" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="modal-indicators" id="modal-indicators"></div>
                 </div>
                 <div class="modal-info">
                     <h2 id="modal-title" class="title"></h2>
