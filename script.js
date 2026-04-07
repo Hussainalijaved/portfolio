@@ -106,10 +106,10 @@ document.querySelectorAll('.scroll-animate').forEach((element) => {
 const projectDetails = {
     "Xtel - Promotions Management": {
         images: [
-            "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+            "/images/xtel1.png",
+            "/images/xtel2.png",
+            "/images/xtel3.png",
+            "/images/xtel4.png"
         ],
         description: `
             <p><strong>Xtel</strong> is a high-performance Promotions Management System engineered with a <strong>Microservices</strong> and <strong>Microfrontend Architecture</strong>. The system provides a centralized platform for managing complex promotional campaigns and secure user authentication (SSO).</p>
@@ -127,9 +127,9 @@ const projectDetails = {
     },
     "Smart Tales and Task App": {
         images: [
-            "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80"
+            "/images/sm1.png",
+            "/images/sm2.png",
+            "/images/sm3.png"
         ],
         description: `
             <p>A comprehensive learning and assignment management application tailored for educational institutions, enabling seamless interaction between teachers and students.</p>
@@ -145,9 +145,12 @@ const projectDetails = {
     },
     "GateSale": {
         images: [
-            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80"
+            "/images/g1.jpeg",
+            "/images/g2.jpeg",
+            "/images/g3.jpeg",
+            "/images/g4.jpeg",
+            "/images/g5.jpeg",
+            "/images/g6.jpeg"
         ],
         description: `
             <p>An intuitive online student marketplace designed to foster a circular economy within campuses by enabling students to seamlessly buy and sell second-hand products securely.</p>
@@ -163,9 +166,12 @@ const projectDetails = {
     },
     "SABES - Electric Store POS App": {
         images: [
-            "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1512428559083-a40ea914197e?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=1200&q=80"
+            "/images/sabes1.png",
+            "/images/sabes2.png",
+            "/images/sabes3.png",
+            "/images/sabes4.png"
+
+
         ],
         description: `
             <p>A specialized, high-performance point-of-sale system created specifically for an electronic and hardware retail store. Designed to modernize out-dated billing processes and improve business tracking.</p>
@@ -197,16 +203,16 @@ let currentImageIndex = 0;
 function updateModalGallery() {
     // Fade out
     modalImg.style.opacity = '0';
-    
+
     setTimeout(() => {
         // Change source
         modalImg.src = currentProjectImages[currentImageIndex];
-        
+
         // Update indicators
         document.querySelectorAll('.indicator').forEach((dot, index) => {
             dot.classList.toggle('active', index === currentImageIndex);
         });
-        
+
         // Fade in
         modalImg.style.opacity = '1';
     }, 300);
@@ -220,7 +226,7 @@ function updateModalGallery() {
 function initGallery(images) {
     currentProjectImages = images;
     currentImageIndex = 0;
-    
+
     // Clear and build indicators
     modalIndicators.innerHTML = '';
     images.forEach((_, index) => {
@@ -233,7 +239,7 @@ function initGallery(images) {
         });
         modalIndicators.appendChild(dot);
     });
-    
+
     updateModalGallery();
 }
 
@@ -249,23 +255,23 @@ modalNext.addEventListener('click', () => {
 
 document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('click', (e) => {
-        if(e.target.closest('a')) return;
-        
+        if (e.target.closest('a')) return;
+
         const titleElement = card.querySelector('.project-title');
         const techList = card.querySelector('.project-tech');
         const projectTitle = titleElement.innerText;
-        
+
         if (titleElement && projectDetails[projectTitle]) {
             const data = projectDetails[projectTitle];
-            
+
             modalTitle.innerText = projectTitle;
             const techs = Array.from(techList.querySelectorAll('li')).map(li => li.innerText).join(' • ');
             modalTech.innerText = techs;
             modalDesc.innerHTML = data.description;
-            
+
             // Initialize Gallery
             initGallery(data.images);
-            
+
             modal.classList.add('show');
             document.body.style.overflow = 'hidden';
         }
