@@ -104,17 +104,18 @@ document.querySelectorAll('.scroll-animate').forEach((element) => {
 
 // --- Project Modal Logic ---
 const projectDetails = {
-    "MyCompany Services": {
+    "Xtel - Promotions Management": {
         description: `
-            <p>An enterprise-level backend system featuring highly scalable APIs built on a microservices architecture. Designed to handle large volumes of concurrent traffic securely and efficiently.</p>
-            <p><strong>Key Features & Contributions:</strong></p>
+            <p><strong>Xtel</strong> is a high-performance Promotions Management System engineered with a <strong>Microservices</strong> and <strong>Microfrontend Architecture</strong>. The system provides a centralized platform for managing complex promotional campaigns and secure user authentication (SSO).</p>
+            <p><strong>Key Technical Highlights:</strong></p>
             <ul>
-                <li>Implemented comprehensive <strong>JWT authentication</strong> and <strong>Single Session Management</strong> mechanisms to ensure secure user access across all services.</li>
-                <li>Integrated <strong>SSO (Single Sign-On)</strong> capabilities for seamless enterprise user onboarding.</li>
-                <li>Architected a robust <strong>API Gateway</strong> and integrated it with <strong>Azure APIM</strong> to centralize routing, enforce rate limiting, and apply security policies globally.</li>
-                <li>Developed custom <strong>Middlewares</strong> for request validation, structured error handling, and centralized logging.</li>
-                <li>Built specialized business logic modules such as dynamic <strong>Promotions</strong>.</li>
-                <li>Containerized services using <strong>Docker</strong> and established automated <strong>CI/CD</strong> deployment pipelines leading into <strong>Azure</strong>.</li>
+                <li>Implemented <strong>Clean Architecture (Onion Architecture)</strong> principles with a focus on Domain-Driven Design (DDD).</li>
+                <li>Utilized the <strong>CQRS Pattern (MediatR)</strong> to effectively segregate command and query logic, optimizing data handling and application scalability.</li>
+                <li>Architected a <strong>Microfrontend</strong> setup using <strong>Vite</strong> and <strong>Module Federation</strong>, enabling independent development and deployment of UI modules (Host + Remote Apps).</li>
+                <li>Developed a robust backend powered by <strong>.NET 8</strong>, incorporating specialized modules for Identity & Access Management (SSO) and dynamic Promotions.</li>
+                <li>Designed a centralized <strong>API Gateway</strong> for secure routing, authentication, and load balancing across various microservices.</li>
+                <li>Containerized the entire ecosystem using <strong>Docker</strong> and <strong>Docker-Compose</strong> for seamless deployment and orchestration.</li>
+                <li>Leveraged <strong>Entity Framework Core</strong> for efficient SQL Server database management with migration support.</li>
             </ul>
         `
     },
